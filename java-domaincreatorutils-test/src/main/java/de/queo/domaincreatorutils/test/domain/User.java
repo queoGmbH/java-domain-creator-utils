@@ -1,6 +1,7 @@
 package de.queo.domaincreatorutils.test.domain;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,8 @@ public class User {
 
     private int age;
 
+    private Integer heightInCm;
+
     public User() {
         super();
     }
@@ -29,6 +32,7 @@ public class User {
 
         this.fullName = userDto.getFullName();
         this.age = userDto.getAge();
+        this.heightInCm = userDto.getHeightInCm().orElse(null);
     }
 
     public Long getId() {
@@ -41,6 +45,10 @@ public class User {
 
     public int getAge() {
         return this.age;
+    }
+
+    public Optional<Integer> getHeightInCm() {
+        return Optional.ofNullable(this.heightInCm);
     }
 
 }

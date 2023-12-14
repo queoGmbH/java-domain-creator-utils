@@ -1,5 +1,7 @@
 package de.queo.domaincreatorutils.test;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,20 +18,29 @@ public abstract class DomainCreatorUtil {
 
     public BuildingBuilder getBuildingBuilder() {
         return new BuildingBuilder(getPostProcessor())
-                .set(b -> b.name.setValue("Great Wall of China"))
-                .set(b -> b.architect.setBuilder(getUserBuilder()));
+                .set(b -> {
+                    b.name.setValue("Great Wall of China");
+                    b.architect.setBuilder(getUserBuilder());
+                    b.reviewer.setEmptyBuilder(getUserBuilder());
+                });
     }
 
     public UserBuilder getUserBuilder() {
         return new UserBuilder(getPostProcessor())
-                .set(b -> b.fullName.setValue("Qin Shi Huang"))
-                .set(b -> b.age.setValue(13));
+                .set(b -> {
+                    b.fullName.setValue("Qin Shi Huang");
+                    b.age.setValue(13);
+                    b.heightInCm.setValue(Optional.empty());
+                });
     }
 
     public UserDtoBuilder getUserDtoBuilder() {
         return new UserDtoBuilder(getPostProcessor())
-                .set(b -> b.fullName.setValue("Qin Shi Huang"))
-                .set(b -> b.age.setValue(18));
+                .set(b -> {
+                    b.fullName.setValue("Qin Shi Huang");
+                    b.age.setValue(18);
+                    b.heightInCm.setValue(Optional.empty());
+                });
     }
 
     protected abstract PostProcessor getPostProcessor();

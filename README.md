@@ -9,7 +9,6 @@ This library helps to simplify the creation of entities in tests. This is achiev
 ```
 <dependencyManagement>
 	<dependencies>
-
 		<dependency>
 			<groupId>de.queo</groupId>
 			<artifactId>java-domaincreatorutils-bom</artifactId>
@@ -76,14 +75,18 @@ public abstract class DomainCreatorUtil {
 
     public BuildingBuilder getBuildingBuilder() {
         return new BuildingBuilder(getPostProcessor())
-                .set(b -> b.name.setValue("Great Wall of China"))
-                .set(b -> b.architect.setBuilder(getUserBuilder()));
+                .set(b -> {
+                    b.name.setValue("Great Wall of China");
+                    b.architect.setBuilder(getUserBuilder());
+                });
     }
 
     public UserBuilder getUserBuilder() {
         return new UserBuilder(getPostProcessor())
-                .set(b -> b.fullName.setValue("Qin Shi Huang"))
-                .set(b -> b.age.setValue(13));
+                .set(b -> {
+                    b.fullName.setValue("Qin Shi Huang");
+                    b.age.setValue(13);
+                });
     }
 
     protected abstract PostProcessor getPostProcessor();
@@ -119,10 +122,10 @@ private DomainCreatorUtil.Persistent domainCreatorUtil;
 
 @Test
 public void testPersistent() {
-	Building building = this.domainCreatorUtil.getBuildingBuilder().build(b -> {
+    Building building = this.domainCreatorUtil.getBuildingBuilder().build(b -> {
         b.name.setValue("Eifelturm");
     });
-	[...]
+    [...]
 }
 ```
 

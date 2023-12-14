@@ -1,6 +1,7 @@
 package de.queo.domaincreatorutils.test.domain;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,16 +21,20 @@ public class Building {
     @ManyToOne
     private User architect;
 
+    @ManyToOne
+    private User reviewer;
+
     public Building() {
         super();
     }
 
-    public Building(final String name, final User architect) {
+    public Building(final String name, final User architect, final Optional<User> reviewer) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(architect);
 
         this.name = name;
         this.architect = architect;
+        this.reviewer = reviewer.orElse(null);
     }
 
     public Long getId() {
@@ -42,6 +47,10 @@ public class Building {
 
     public User getArchitect() {
         return this.architect;
+    }
+
+    public Optional<User> getReviewer() {
+        return Optional.ofNullable(this.reviewer);
     }
 
 }
