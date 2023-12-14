@@ -119,7 +119,9 @@ private DomainCreatorUtil.Persistent domainCreatorUtil;
 
 @Test
 public void testPersistent() {
-	Building building = this.domainCreatorUtil.getBuildingBuilder().build();
+	Building building = this.domainCreatorUtil.getBuildingBuilder().build(b -> {
+        b.name.setValue("Eifelturm");
+    });
 	[...]
 }
 ```
