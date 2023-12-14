@@ -31,5 +31,14 @@ public class DomainTest {
         assertThat(this.buildingDao.findAll()).containsExactly(building);
         assertThat(this.userDao.findAll()).containsExactly(building.getArchitect());
     }
-    
+
+    @Test
+    void testModifyInBuild() {
+        Building building = this.domainCreatorUtil.getBuildingBuilder().build(b -> {
+            b.name.setValue("Eifelturm");
+        });
+
+        assertThat(building.getName()).isEqualTo("Eifelturm");
+    }
+
 }
